@@ -1,4 +1,69 @@
+body{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color: rgb(20, 4, 36);
+}
+
+button {
+  background-color: rgb(22, 80, 82);
+  color: rgb(183, 182, 184)
+}
+
+/* Header Content */
+
 h1{
-  border-color: #d3e644;
-  border-style: dashed;
+  margin-right: 2%;
+  color: rgb(183, 182, 184)
+}
+
+header{
+  display: flex;
+  justify-content: center;
+}
+
+.load-data{
+  max-height: 40px;
+  align-self: center;
+}
+
+/* Form */
+div{
+  display: flex;
+  justify-content: center;
+}
+
+form{  
+  max-width: fit-content;
+  border-color: rgb(183, 182, 184);
+  border-style: solid;
+  padding: 3%;
+}
+
+.addnew{
+  color: rgb(183, 182, 184);
+}
+
+label{
+  color:rgb(183, 182, 184);
+}
+
+input{
+  min-width: 200px;
+  background-color: rgb(183, 182, 184);
+}
+
+/* Table */
+tr,td {
+  text-align: center;
+  width: 80px;
+  color: rgb(183, 182, 184);
+}
+
+th {
+  background-color: rgb(20, 44, 66);
+  width: 80px;
+}
+
+.delete-button{
+  background-color: rgb(138, 43, 41);
+  color: rgb(183, 182, 184);
 }

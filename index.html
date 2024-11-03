@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 
 <head>
     <meta charset="utf-8">
@@ -7,57 +7,102 @@
     <title>Test AWS Lambda</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <h1>Simple Demo for PUT, GET, and DELETE</h1>
+    <header>
+    <h1>Inventory Manager</h1>
+    <button id="load-data" class="load-data">Load Table</button>
+    </header>
+
+    <div>
     <p id="lambda-info">
         <!-- loaded with AJAX -->
     </p>
+    </div>
 
-    <hr>
-    <button id="send-data">Send Data</button>
-    <p>Sends an example JSON object to the server with id 11111</p>
     <script>
-        document.getElementById("send-data").onclick = function () {
-            let xhr = new XMLHttpRequest();
-            xhr.open("PUT", "Your Lambda here");
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.send(JSON.stringify({
-                "id": "6666666",
-                "price": 19,
-                "name": "test put value"
-            }));
-        }
-    </script>
-
-    <button id="load-data">Load Data</button>
-    <p>Loads data from the server</p>
-    <script>
-        document.getElementById("load-data").onclick = function () {
+        document.getElementById("load-data").onclick = load;
+        function load() {
             let lambda = document.getElementById("lambda-info");
             let xhr = new XMLHttpRequest();
             xhr.addEventListener("load", function () {
-                lambda.innerHTML = xhr.response;
+                //Add header row to table
+                let html = "<table border='1'><thead><tr><th>Id</th><th>Price</th><th>Name</th><th>Action</th></tr><thead><tbody>"
+                let myObj = JSON.parse(xhr.response);
+                    for (let i = 0; i < myObj.length; i++) {
+                        //Add table row for each json object
+                    html += "<tr><td>" + myObj[i].id + "</td><td>" + myObj[i].price + "</td><td>" + myObj[i].name + "</td><td>" +
+                        "<button class='delete-button' id=" + `"delete-data" onclick='removeItem(${myObj[i].id})'>Delete</button>` +
+                         "</td></tr>";
+                }
+                html += "</tbody></table>"
+                //Set html for lambda info for display
+                lambda.innerHTML = html;
             });
-            xhr.open("GET", "Your Lambda here");
+            xhr.open("GET", "https://zwf99q0xk4.execute-api.us-east-2.amazonaws.com/items");
             xhr.send();
         }
 
     </script>
 
-    <hr>
-    <button id="delete-data">Delete Data</button>
-    <p>Deletes a JSON object from the server with 11111</p>
     <script>
-        document.getElementById("delete-data").onclick = function () {
+        //Create function to take in item id to pass to delete
+        function removeItem(id) {
             let xhr = new XMLHttpRequest();
-            xhr.open("DELETE", "Your Lambda here");
+            xhr.open("DELETE", "https://zwf99q0xk4.execute-api.us-east-2.amazonaws.com/items/" + `${id}`);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send();
         }
     </script>
-</body>
+    <div>
+        <form>
+            <p class="addnew">Add new item to Inventory</p>
+
+            <label for="id_input">Id: </label><br/>
+            <input id="id_input"
+                   type="text"
+                   name="name_field" /><br/><br/>
+            <label for="item_input">Price: </label><br/>
+            <input id="item_input"
+                   type="text"
+                   name="name_field"/><br/><br/>
+            <label for="name_input">Name: </label><br/>
+            <input id="name_input"
+                   type="text"
+                   name="name_field"/> <br/><br/>
+            <button type="submit" id="send-data">Submit</button>
+        </form>
+    </div>
+    <script>
+        //Get form object from html
+        let form = document.querySelector('form');
+    
+        //Add event for submit action (button press)
+        form.addEventListener('submit', (event) => {
+            //Prevent the default form action
+            event.preventDefault();      
+        
+            // Create variable for each input
+            let id = document.getElementById('id_input').value;
+            let price = document.getElementById('item_input').value;
+            let name = document.getElementById('name_input').value;
+    
+            //Use variables to create JSON for PUT
+            let xhr = new XMLHttpRequest();
+            xhr.open("PUT", "https://zwf99q0xk4.execute-api.us-east-2.amazonaws.com/items");
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify({
+                "id": id,
+                "price": price,
+                "name": name
+            }));
+
+            //Reset the form values
+        form.reset();
+    });
+ </script>
+</body>      
 
 </html>

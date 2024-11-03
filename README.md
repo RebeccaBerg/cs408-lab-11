@@ -1,24 +1,15 @@
-# Web Dev Starter Code
+# Lab 11
 
 ## Overview
 
-TODO: Write a project description
+Creates a page that allows for loading of a table of items, deleting specific items in the table and adding a new item to a table through a submission form.  The back end database is hosted on AWS and uses lambda functions from there to perform its CRUD operations.
+
+## Compiling and Running
+
+Download all necessary files in this project locally.  From there you may either run it through Visual Studio Code's Live Preview feature, through running the debugger, or you may drag the index.html file to the browser of your choice to open.
 
 ## Sources and Credits
 
-TODO: You must credit the sources and authors of any code, libraries, or other
-assets you use in your project. If you leave this section blank, your project
-will be considered in violation of the Academic Honesty policy unless you truly
-created everything from scratch with no outside help. If you need to use a
-source that you cannot credit (e.g. a classmate's work), you must get explicit
-permission from your instructor.
-
-A simple bulleted list below is sufficient. For example:
-
-- Bootstrap: https://getbootstrap.com/
-- jQuery: https://jquery.com/
-- Background image: https://unsplash.com/photos/...
-- Sound effects: https://freesound.org/people/...
-- Icons: https://fontawesome.com/
-- Fonts: https://fonts.google.com/
-- etc.
+- Working with JSON - https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON#converting_between_objects_and_text
+- HTML Forms - https://www.w3schools.com/html/html_forms.asp
+- JSON HTML - https://www.w3schools.com/js/js_json_html.asp
